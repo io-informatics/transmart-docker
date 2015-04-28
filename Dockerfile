@@ -22,8 +22,11 @@ RUN /etc/init.d/postgresql start && su postgres -c "cd /opt/transmart-data-1.2.4
 # Create config files for transmartApp
 RUN cd /opt/transmart-data-1.2.4 && . ./vars && make -C config install
 
+ADD run.sh /run.sh
+RUN chmod +x /run.sh
+
 # Ports for postgresql and tomcat are exposed
 EXPOSE 5432
 EXPOSE 8080
 
-CMD ["catalina.sh", "run"]
+CMD ["/run.sh"]
