@@ -11,7 +11,7 @@ How to use this image
 
 This image provides different types of deployments:
 
-* *Embedded PostgreSQL Databese*: This is intended only for testing or proof of concept the platform. The image contains everything you need to use the tranSMART platform from  a single Docker container.
+* *Embedded PostgreSQL Database*: This is intended only for testing or proof of concept the platform. The image contains everything you need to use the tranSMART platform from  a single Docker container.
 
 Embedded PostgreSQL Database
 -----------------------------
