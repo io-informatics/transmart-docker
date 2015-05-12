@@ -9,7 +9,8 @@ RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
 # Install transmartApp WAR
-ADD https://ci.transmartfoundation.org/browse/DEPLOY-TRAPP-14/artifact/shared/transmart.war/transmart.war /usr/local/tomcat/webapps/transmart.war
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+ADD https://ci.transmartfoundation.org/browse/DEPLOY-TRAPP-14/artifact/shared/transmart.war/transmart.war /usr/local/tomcat/webapps/ROOT.war
 
 # Install transmart-data
 ADD https://github.com/transmart/transmart-data/archive/v1.2.4.tar.gz /opt/transmart-data.tar.gz
