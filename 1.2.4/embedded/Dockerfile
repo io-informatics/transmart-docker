@@ -4,7 +4,7 @@ MAINTAINER Alexander De Leon <me@alexdeleon.name>
 # Install dependencies
 RUN apt-get update && apt-get -y install build-essential postgresql php5 sudo rsync supervisor
 
-# Set up loacale
+# Set up locale
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
