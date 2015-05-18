@@ -21,5 +21,11 @@ The tags for this deployments are: 1.2.4-embedded
 To run the container just execute the following Docker command:
 
 ```
-docker run ioinformatics/transmart:1.2.4-embedded
+docker run -d -p 8080:8080 ioinformatics/transmart:1.2.4-embedded
 ```
+
+Then open the following URL in your browser: http://localhost:8080. NOTE if you are using boot2docker on Windows or MacOSX you need to use the IP of your boot2docker vm instead of localhost. For instance: http://192.168.59.103:8080 (You can find this ip using the command `boot2docker ip` .. [more info here](https://github.com/boot2docker/boot2docker#container-port-redirection)
+
+Notice
+=====
+tranSMART is a community project of the [Transmart Foundation](http://transmartfoundation.org) and it is used in this image under the terms of the [GPLv3](http://opensource.org/licenses/GPL-3.0) License. 
