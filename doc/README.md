@@ -22,8 +22,19 @@ The tags for this deployment are: 1.2.4-embedded
 To run the container just execute the following Docker command:
 
 ```
-docker run -d -p 8080:8080 ioinformatics/transmart:1.2.4-embedded
+docker run -d -p 8080:8080 --name transmart ioinformatics/transmart:1.2.4-embedded
 ```
+
+### Load sample data
+
+When you have created the tranSMART container you can load publicly available data into the database. For this, you need to know the name of your container, if you used the command above you see that we have named our container `transmart` using the `--name` option, but if you have not used this option you can find the name of your container using the `docker ps` command. When you have the name you can execute the `load` program on it to load data. You can do this using the following command:
+
+```
+docker exec transmart load clinical_GSE8581
+```
+
+In the above `trasmart` is the name of the container and `clinical_GSE8581` is the dataset that will be loaded. The name of the dataset follow this template `<data type>_<study name>`. You can find more about the publicly available datasets in the [transmart-data project](https://github.com/thehyve/transmart-data#running-etl-targets)  
+
 
 Distributed
 -----------
@@ -59,6 +70,7 @@ docker run -d -p 8080:8080 -e "POSTGRESQL_HOST=my-postgres" ioinformatics/transm
 ```
 
 Then open the following URL in your browser: http://localhost:8080. NOTE if you are using boot2docker on Windows or MacOSX you need to use the IP of your boot2docker vm instead of localhost. For instance: http://192.168.59.103:8080 (You can find this ip using the command `boot2docker ip` .. [more info here](https://github.com/boot2docker/boot2docker#container-port-redirection)
+
 
 Notice
 =====

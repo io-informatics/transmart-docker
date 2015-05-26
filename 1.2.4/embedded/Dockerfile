@@ -23,8 +23,28 @@ RUN  mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; 
 # Create config files for transmartApp
 RUN cd /opt/transmart-data-1.2.4 && . ./vars && make -C config install && make -C solr/ solr_home
 
+# Install groovy
+ADD http://dl.bintray.com/groovy/maven/groovy-binary-2.4.3.zip /opt/transmart-data-1.2.4/env/groovy-binary-2.4.3.zip
+RUN cd /opt/transmart-data-1.2.4/env/; unzip groovy-binary-2.4.3.zip
+ENV PATH /opt/transmart-data-1.2.4/env/groovy-2.4.3/bin:$PATH
+
+# Install Kettle
+ADD http://downloads.sourceforge.net/project/pentaho/Data%20Integration/5.3/pdi-ce-5.3.0.0-213.zip?r=http%3A%2F%2Fcommunity.pentaho.com%2Fprojects%2Fdata-integration%2F&ts=1432137602&use_mirror=softlayer-ams /opt/transmart-data-1.2.4/env/kettle.zip
+RUN cd /opt/transmart-data-1.2.4/env/; unzip kettle.zip
+
+# Dowload tranSMART-ETL
+ADD https://github.com/thehyve/tranSMART-ETL/archive/v1.2.1.zip /opt/transmart-etl.zip
+RUN cd /opt; unzip transmart-etl.zip
+
+
+# Download sample data
+RUN cd /opt/transmart-data-1.2.4; . ./vars && make update_datasets
+
 # Create supervisor config
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+ADD load.sh /usr/local/bin/load
+RUN chmod +x /usr/local/bin/load
 
 # work around for AUFS bug
 # as per https://github.com/docker/docker/issues/783#issuecomment-56013588
