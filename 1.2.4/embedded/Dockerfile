@@ -46,6 +46,9 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD load.sh /usr/local/bin/load
 RUN chmod +x /usr/local/bin/load
 
+ADD start-postgres.sh /start-postgres.sh
+RUN chmod +x /start-postgres.sh
+
 # work around for AUFS bug
 # as per https://github.com/docker/docker/issues/783#issuecomment-56013588
 RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R postgres /etc/ssl/private
