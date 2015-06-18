@@ -57,5 +57,6 @@ EXPOSE 5432
 EXPOSE 8080
 #solr
 EXPOSE 8983
-
+#rserver
+EXPOSE 6311
 CMD ["/usr/bin/supervisord"]
