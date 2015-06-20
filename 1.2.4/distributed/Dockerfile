@@ -10,7 +10,10 @@ ENV POSTGRESQL_USER postgres
 ENV POSTGRESQL_PASSWORD ''
 
 # Install dependencies
-RUN apt-get update && apt-get -y install php5 sudo rsync supervisor
+RUN apt-get update && apt-get -y install build-essential postgresql php5 sudo rsync supervisor r-base  libcairo2-dev
+
+#Install R dependencies
+RUN R CMD BATCH ../scripts/install_r_packages.R
 
 
 # Install transmartApp WAR
@@ -29,5 +32,10 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Ports
 # tomcat/transmart
 EXPOSE 8080
-
+#postgresql
+EXPOSE 5432
+#solr
+EXPOSE 8983
+#rserver
+EXPOSE 6311
 CMD ["/usr/bin/supervisord"]
