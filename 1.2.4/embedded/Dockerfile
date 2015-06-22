@@ -2,10 +2,29 @@ FROM     tomcat:7-jre8
 MAINTAINER Alexander De Leon <me@alexdeleon.name>
 
 # Install dependencies
-RUN apt-get update && apt-get -y install build-essential postgresql php5 sudo rsync supervisor r-base  libcairo2-dev
+RUN apt-get update && apt-get -y install build-essential postgresql php5 sudo rsync supervisor
+
+RUN apt-get update && apt-get -y install r-base libcairo2-dev
 
 #Install R dependencies
-RUN R CMD BATCH ../scripts/install_r_packages.R
+RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; options(repos = r);" > ~/.Rprofile
+RUN Rscript -e "install.packages('Rserve')"
+RUN Rscript -e "install.packages('Cairo')"
+RUN Rscript -e "install.packages('MASS')"
+RUN Rscript -e "install.packages('stringr')"
+RUN Rscript -e "install.packages('ggplot2')"
+RUN Rscript -e "install.packages('plyr')"
+RUN Rscript -e "install.packages('reshape2')"
+RUN Rscript -e "install.packages('data.table')"
+RUN Rscript -e "install.packages('gplots')"
+RUN Rscript -e "source('biocLite.R')"
+RUN Rscript -e "biocLite('impute')"
+RUN Rscript -e "install.packages('WGCNA')"
+RUN Rscript -e "biocLite('multtest')"
+RUN Rscript -e "biocLite('limma')"
+RUN Rscript -e "library(Rserve)"
+RUN Rscript -e "Rserve()"
+
 
 # Set up locale
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
