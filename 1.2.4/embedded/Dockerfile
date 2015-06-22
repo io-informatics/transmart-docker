@@ -7,8 +7,8 @@ RUN apt-get update && apt-get -y install build-essential postgresql php5 sudo rs
 RUN apt-get update && apt-get -y install r-base libcairo2-dev
 
 #Install R dependencies
-ADD ../scripts/biocLite.R /tmp/
-ADD ../scripts/install-packages.R /tmp/
+ADD biocLite.R /tmp/biocLite.R
+ADD install-packages.R /tmp/install-packages.R
 RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; options(repos = r);" > ~/.Rprofile
 RUN Rscript /tmp/install-packages.R
 
