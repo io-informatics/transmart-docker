@@ -10,10 +10,10 @@ ENV POSTGRESQL_USER postgres
 ENV POSTGRESQL_PASSWORD ''
 
 # Install dependencies
-RUN apt-get update && apt-get -y install build-essential postgresql php5 sudo rsync supervisor r-base  libcairo2-dev
+RUN apt-get update && apt-get -y install build-essential postgresql php5 sudo rsync supervisor r-base libcairo2-dev
 
 #Install R dependencies
-RUN R CMD BATCH ../scripts/install_r_packages.R
+#RUN R CMD BATCH ../scripts/install_r_packages.R
 
 
 # Install transmartApp WAR
